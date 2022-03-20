@@ -27,7 +27,7 @@ your graphic.
 
 ## Installation
 
-You can install the development version of ggunit like so:
+ggunit is not available on CRAN. You can install the development version of ggunit from GitHub:
 
 ``` r
 # install.packages("remotes")
@@ -35,7 +35,8 @@ remotes::install_github("charlie-gallagher/ggunit")
 ```
 
 ## Usage
-Central to the ggunit package is the design unit "lines." One line is the 
+The central philosophy of the ggunit package is that the unit "lines" is the
+best design unit for data visualization proportions. One _line_ is the
 height of a line of body text, for example the axis text. Since a primary goal
 of visualizations is to have readable text, lines are a natural unit of
 measurement. 
