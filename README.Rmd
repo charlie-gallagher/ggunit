@@ -75,7 +75,7 @@ provides the `pt_to_mm()` and `mm_to_pt()` functions.
 ```{r}
 default_text <- 11      # Text size in points
 
-default_text / .pt      # Converted to millimeters
+default_text / ggplot2::.pt      # Converted to millimeters
 pt_to_mm(default_text)  # Same, but more intuitive
 ```
 
