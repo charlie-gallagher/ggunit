@@ -1,10 +1,11 @@
 Package: ggunit
-Title: What the Package Does (One Line, Title Case)
+Title: Utilies for graphic proportions
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Charlie", "Gallagher", , "charliejgallagher15@gmail.com", role = c("aut", "cre"))
+Description: Utilities for generating consistent and predictable outputs
+    for graphics devices. The philosophy of ggunit is that "lines"
+    is the best unit for most data visualization purposes.
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0)
