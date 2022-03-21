@@ -9,12 +9,12 @@ unit_conv <- data.frame(
     unit = c("cm", "centimeter", "centimeters", "centimetre", "centimetres",
              "in", "inch", "inches",
              "mm", "millimeter", "millimeters", "millimetre", "millimetres",
-             "pts", "point", "points",
+             "pt", "pts", "point", "points",
              "picas", "bigpts", "dida", "cicero", "scaledpts"),
     conv_to_mm = c(10, 10, 10, 10, 10,
                    25.4, 25.4, 25.4,
                    1, 1, 1, 1, 1,
-                   pts, pts, pts,
+                   pts, pts, pts, pts,
                    picas, bigpts, dida, cicero, pts/65536),
     stringsAsFactors = FALSE
 )

@@ -4,7 +4,7 @@
 \alias{text_dimensions}
 \title{Get default text size for a graphic}
 \usage{
-text_dimensions(height, lines, units = "in")
+text_dimensions(height, lines, units = "in", round = TRUE)
 }
 \arguments{
 \item{height}{Height of the graphic.}
@@ -13,6 +13,9 @@ text_dimensions(height, lines, units = "in")
 
 \item{units}{Units in which height and width are given. Only "in", "cm", and
 "mm" are currently supported.}
+
+\item{round}{Logical, whether to round the output to the nearest point.
+Defaults to \code{TRUE}.}
 }
 \value{
 Size of font in points, rounded to the nearest integer

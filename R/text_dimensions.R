@@ -7,6 +7,8 @@
 #' @param lines Desired number of lines tall the graphic will be.
 #' @param units Units in which height and width are given. Only "in", "cm", and
 #'   "mm" are currently supported.
+#' @param round Logical, whether to round the output to the nearest point.
+#' Defaults to `TRUE`.
 #'
 #' @return Size of font in points, rounded to the nearest integer
 #' @export
@@ -18,12 +20,19 @@
 #'                 units = "in")
 text_dimensions <- function(height,
                             lines,
-                            units = "in") {
+                            units = "in",
+                            round = TRUE) {
     height <- switch(units,
         "in" = height,
         "cm" = height / 2.54,
         "mm" = height / 25.4
     )
 
-    as.integer(round(height / lines * 72.27, digits = 0))
+    out <- height / lines * 72.27
+
+    if (round) {
+        out <- round(out, digits = 0)
+    }
+
+    out
 }
