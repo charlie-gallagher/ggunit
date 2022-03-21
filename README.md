@@ -41,6 +41,7 @@ aspect ratio, and the body text size (in points) and generates the
 correct units (in inches, by default) for height and width.
 
 ``` r
+library(ggplot2)
 library(ggunit)
 
 dims <- device_dimensions(default_text = 11, 
@@ -68,11 +69,29 @@ my_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) +
   geom_point() + 
   theme_linedraw(base_size = 11)
   
+
+# OPTION 1: Generate units, pass to device function
+dims <- device_dimensions(
+  default_text = 11,
+  height = 30,
+  aspect_ratio = 16/9
+)
+
+ggsave(
+  plot = my_plot,
+  filename = "~/Desktop/my_plot.png",
+  height = dims$height,
+  width = dims$width,
+  dpi = 200
+)
+
+  
+# OPTION 2: Do it all in one fell swoop
 ggunit_save(
   plot = my_plot,
   filename = "~/Desktop/my_plot.png",
   dpi = 200,
-  # Height in lines
+  default_text = 11,
   height = 30,
   aspect_ratio = 16/9
 )
@@ -127,6 +146,23 @@ default_text / ggplot2::.pt      # Converted to millimeters
 mm(default_text, "pt")           # Same, but more intuitive
 #> [1] 3.866058
 ```
+
+The typical use is to make sure plotted text is the same size as your
+theme’s default text size.
+
+``` r
+default_size <- 11
+
+ggplot(mtcars, aes(x = disp, y = mpg)) + 
+    geom_text(aes(label = row.names(mtcars)),
+              # geom_text uses millimeters, so convert
+              size = mm(default_size),
+              check_overlap = TRUE) + 
+    # base_size is in points, so don't convert
+    theme_linedraw(base_size = default_size)
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ------------------------------------------------------------------------
 
