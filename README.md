@@ -18,7 +18,8 @@ and scaling for your graphic.
 
 ## Installation
 
-You can install the development version of ggunit like so:
+ggunit is not available on CRAN. You can install the development version
+of ggunit from GitHub:
 
 ``` r
 # install.packages("remotes")
@@ -27,7 +28,8 @@ remotes::install_github("charlie-gallagher/ggunit")
 
 ## Usage
 
-Central to the ggunit package is the design unit “lines.” One line is
+The central philosophy of the ggunit package is that the unit “lines” is
+the best design unit for data visualization proportions. One *line* is
 the height of a line of body text, for example the axis text. Since a
 primary goal of visualizations is to have readable text, lines are a
 natural unit of measurement.
@@ -56,8 +58,35 @@ dims
 ```
 
 The `device_dimensions()` function is useful because it’s explicit. If
-you don’t have very strict standards, you can pass your graphic to
-`ggunit_save()`, which is a thin wrapper around `ggplot2::ggsave()`.
+you just want to know that your graphic has a good relationship between
+its proportions, and don’t care exactly what the measurements are, you
+can pass your graphic to `ggunit_save()`, which is a thin wrapper around
+`ggplot2::ggsave()`.
+
+For designs that are constrained by physical dimensions, ggunit provides
+a way to find the appropriate text size in points given physical
+dimensions and a desired proportion in lines, through
+`text_dimensions()`.
+
+``` r
+text_dimensions(
+    height = 5.5,
+    lines = 30
+)
+#> [1] 13
+```
+
+The text size is rounded to the nearest point by default. You can turn
+this off by setting the `round` argument to `FALSE`.
+
+``` r
+text_dimensions(
+    height = 5.5,
+    lines = 30,
+    round = FALSE
+)
+#> [1] 13.2495
+```
 
 ### Other tools
 
@@ -67,16 +96,18 @@ see text sizes are in `geom_text()` for plotting text and
 
 The problem is that `geom_text` uses millimeters for the `size`
 argument, and `element_text` uses points. The ggplot2 package provides
-the `.pt` constant, which is the number of points in 1mm. To make this
-easier to use, `ggunit` provides the `pt_to_mm()` and `mm_to_pt()`
-functions.
+the `.pt` constant, which is the number of points in 1mm.
+
+ggunit generalizes this with the `mm()` function, which converts from
+any unit available with `grid::unit()` to millimeters. The default is
+“pt” since this is the main use case.
 
 ``` r
 default_text <- 11      # Text size in points
 
 default_text / ggplot2::.pt      # Converted to millimeters
 #> [1] 3.866058
-pt_to_mm(default_text)  # Same, but more intuitive
+mm(default_text, "pt")  # Same, but more intuitive
 #> [1] 3.866058
 ```
 
