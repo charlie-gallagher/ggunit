@@ -34,11 +34,17 @@ the height of a line of body text, for example the axis text. Since a
 primary goal of visualizations is to have readable text, lines are a
 natural unit of measurement.
 
+Technically, ggunit asks for the text size and assumes that’s the height
+of 1 line. It doesn’t account for other factors like line spacing.
+
 ## Usage
 
-The function `device_dimensions()` takes a height in lines of text, an
-aspect ratio, and the body text size (in points) and generates the
-correct units (in inches, by default) for height and width.
+The function `device_dimensions()` helps you find the height and width
+(in inches) to pass to your graphics device.
+
+It takes a height in lines of text, an aspect ratio, and the body text
+size (in points) and generates the correct units (in inches, by default)
+for height and width.
 
 ``` r
 library(ggplot2)
@@ -56,7 +62,9 @@ dims
 #> [1] 8.117707
 ```
 
-The result is a list of length 2 with the requested dimensions.
+The result is a list of length 2 with the requested dimensions. Text
+will appear smaller as the value of `height` increases. See examples
+below.
 
 You can use the shortcut `ggunit_save()`, which is a thin wrapper around
 `ggplot2::ggsave()`, to quickly iterate on graphic proportions.
@@ -153,6 +161,38 @@ theme’s default text size.
 ``` r
 default_size <- 11
 
+ex_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) + 
+    geom_text(aes(label = row.names(mtcars)),
+              # geom_text uses millimeters, so convert
+              size = mm(default_size),
+              check_overlap = TRUE) + 
+    # base_size is in points, so don't convert
+    theme_linedraw(base_size = default_size)
+
+ex_plot
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+# Examples
+
+In RMarkdown, my figures are set to a width of 100%, so my `fig.height`
+and `fig.width` options defines the scale of the graphic.
+
+Thus, I have a physical constraint (whatever I set `fig.height` and
+`fig.width` to). So I can use `text_dimensions()` to find the
+appropriate text size given my desired graphic height in lines.
+
+Notice that I don’t have to change (a) the figure dimensions, or (b)
+anything about the theme or the plotted text geom. The only thing I have
+to change is the number of “lines” I want my graphic to be.
+
+## 45 lines, 16:9 aspect ratio
+
+``` r
+# fig.height = 6, fig.width = (6 * 16 / 9)
+default_size <- text_dimensions(height = 6, lines = 45)
+
 ggplot(mtcars, aes(x = disp, y = mpg)) + 
     geom_text(aes(label = row.names(mtcars)),
               # geom_text uses millimeters, so convert
@@ -162,7 +202,45 @@ ggplot(mtcars, aes(x = disp, y = mpg)) +
     theme_linedraw(base_size = default_size)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+
+## 35 lines, 16:9 aspect ratio
+
+``` r
+# fig.height = 6, fig.width = (6 * 16 / 9)
+default_size <- text_dimensions(height = 6, lines = 35)
+
+ex_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) + 
+    geom_text(aes(label = row.names(mtcars)),
+              # geom_text uses millimeters, so convert
+              size = mm(default_size),
+              check_overlap = TRUE) + 
+    # base_size is in points, so don't convert
+    theme_linedraw(base_size = default_size)
+
+ex_plot
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+
+## 25 lines, 16:9 aspect ratio
+
+``` r
+# fig.height = 6, fig.width = (6 * 16 / 9)
+default_size <- text_dimensions(height = 6, lines = 25)
+
+ex_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) + 
+    geom_text(aes(label = row.names(mtcars)),
+              # geom_text uses millimeters, so convert
+              size = mm(default_size),
+              check_overlap = TRUE) + 
+    # base_size is in points, so don't convert
+    theme_linedraw(base_size = default_size)
+
+ex_plot
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ------------------------------------------------------------------------
 
