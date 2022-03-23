@@ -1,6 +1,6 @@
 Package: ggunit
 Title: Utilies for graphic proportions
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("Charlie", "Gallagher", , "charliejgallagher15@gmail.com", role = c("aut", "cre"))
 Description: Utilities for generating consistent and predictable outputs
