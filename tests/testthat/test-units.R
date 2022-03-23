@@ -1,11 +1,4 @@
-test_that("Unit conversion requires a numeric vector", {
-    expect_error(
-        mm("12", "pts"),
-        "is not TRUE"
-    )
-})
-
-test_that("Unit conversion function works for single-element vectors", {
+test_that("'mm' unit conversion function works for single-element vectors", {
     expect_equal(
         mm(12, "pts"),
         12 / ggplot2::.pt
@@ -32,41 +25,24 @@ test_that("Unit conversion function works for single-element vectors", {
     )
 })
 
-test_that("'mm' throws an error when the unit is not recognized", {
-    expect_error(
-        mm(1, "meter"),
-        "Unrecognized unit\\(s\\): meter"
+
+test_that("'px' unit conversion function works for single-element vectors", {
+    expect_equal(
+        px(x = 12, units = "pts", res = 96, round = TRUE),
+        16
+    )
+
+    # Run through a few different resolutions
+    for (i in c(5, 25, 75, 105, 1000)) {
+        expect_equal(
+            px(x = 12, units = "in", res = i, round = FALSE),
+            12 * i
+        )
+    }
+
+    # Check another type of unit
+    expect_equal(
+        px(x = 1, units = "mm", res = 100, round = FALSE),
+        25.4 * 100
     )
 })
-
-
-test_that("'mm' throws recycling errors according to vctrs rules", {
-    expect_error(
-        mm(1:5, c("cm", "mm"))
-    )
-
-    expect_equal(
-        mm(1, c("cm", "mm")),
-        c(10, 1)
-    )
-
-    expect_equal(
-        mm(1:5, "mm"),
-        1:5
-    )
-})
-
-
-test_that("'mm' accepts common alternatives for typical units", {
-    expect_equal(
-        mm(1, "in"),
-        mm(1, "inch")
-    )
-
-    expect_equal(
-        mm(1, "in"),
-        mm(1, "inches")
-    )
-})
-
-
