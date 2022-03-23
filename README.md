@@ -164,7 +164,7 @@ default_size <- 11
 ex_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) + 
     geom_text(aes(label = row.names(mtcars)),
               # geom_text uses millimeters, so convert
-              size = mm(default_size),
+              size = ggunit::mm(default_size),
               check_overlap = TRUE) + 
     # base_size is in points, so don't convert
     theme_linedraw(base_size = default_size)
@@ -173,6 +173,17 @@ ex_plot
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+There is also a `px()` function, which converts from some unit to
+pixels, given some resolution (pixels per inch). This is very useful for
+use with html content like `gt` tables, although the name is regrettably
+(and temporarily) the same.
+
+``` r
+# What's a 12 pt font in pixels, assuming web resolution of 96?
+px(x = 12, units = "pts", res = 96)
+#> [1] 16
+```
 
 # Examples
 
@@ -202,7 +213,7 @@ ggplot(mtcars, aes(x = disp, y = mpg)) +
     theme_linedraw(base_size = default_size)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
 
 ## 35 lines, 16:9 aspect ratio
 
@@ -221,7 +232,7 @@ ex_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) +
 ex_plot
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ## 25 lines, 16:9 aspect ratio
 
@@ -240,7 +251,7 @@ ex_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) +
 ex_plot
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 ------------------------------------------------------------------------
 

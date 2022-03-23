@@ -169,6 +169,16 @@ ex_plot <- ggplot(mtcars, aes(x = disp, y = mpg)) +
 ex_plot
 ```
 
+There is also a `px()` function, which converts from some unit to pixels, given
+some resolution (pixels per inch). This is very useful for use with html content
+like `gt` tables, although the name is regrettably (and temporarily) the same. 
+
+```{r}
+# What's a 12 pt font in pixels, assuming web resolution of 96?
+px(x = 12, units = "pts", res = 96)
+```
+
+
 
 # Examples
 In RMarkdown, my figures are set to a width of 100%, so my `fig.height` and
