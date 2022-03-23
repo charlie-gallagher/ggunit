@@ -1,7 +1,9 @@
 #' Convert from one unit to another using the internal lookup
 #'
-#' @param x
-#' @param unit
+#' @param x Numeric vector
+#' @param from_unit Unit to use as "from"
+#' @param to_unit Unit to use as "to". Must be a column suffix in the unit_conv
+#' data.frame.
 #'
 #' @noRd
 get_conv_factors <- function(x, from_unit, to_unit) {

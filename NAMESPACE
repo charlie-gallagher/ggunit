@@ -3,4 +3,5 @@
 export(device_dimensions)
 export(ggunit_save)
 export(mm)
+export(px)
 export(text_dimensions)
