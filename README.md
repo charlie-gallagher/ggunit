@@ -177,7 +177,7 @@ ex_plot
 There is also a `px()` function, which converts from some unit to
 pixels, given some resolution (pixels per inch). This is very useful for
 use with html content like `gt` tables, although the name is regrettably
-(and temporarily) the same.
+(and temporarily) the same as `gt::px()`.
 
 ``` r
 # What's a 12 pt font in pixels, assuming web resolution of 96?
